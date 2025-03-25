@@ -11,15 +11,14 @@ Nb = Nbps*Nsymb;  % Number of bits
 rollOff = 0.2;  % Roll-Off Factor
 M = 4;  % Upsampling Factor
 N = 101;  % Number of taps (ODD ONLY)
-bandwidth = 6e6;  % CutOff Frequency of the Nyquist Filter
-EbN0 = 0:2:30;  % Eb to N0 ratio (Eb = bit energy, N0 = noise PSD)  -> vector to compare BER
+EbN0 = 0:2:16;  % Eb to N0 ratio (Eb = bit energy, N0 = noise PSD)  -> vector to compare BER
 averageNb = 1;  % Number of iteration to average the BER   -> more than 1 to make an average
 symbRate= 5e6;  % Symbol rate [symb/s]
 Tsymb= 1/symbRate;  % Symbol Period
 Fs = symbRate*M;  % Sampling Frequency
 
 
-fprintf('Number of symbols : %d\nNumber of bits per symbols : %d [bit/symb]\nRoll-off factor : %d\nUpsampling factor : %d\nNumber of taps : %d\nBandwidth : %d [Hz]\nSymbol rate : %d [symb/s]\n', Nsymb, Nbps, rollOff, M, N, bandwidth, symbRate);
+fprintf('Number of symbols : %d\nNumber of bits per symbols : %d [bit/symb]\nRoll-off factor : %d\nUpsampling factor : %d\nNumber of taps : %d\nSymbol rate : %d [symb/s]\n', Nsymb, Nbps, rollOff, M, N, symbRate);
 
 
 % To display graphs, put averageNb=1, Nbps = int and EbN0 = int
@@ -101,9 +100,6 @@ for j = 1:length(EbN0)
 end
 
 % Constellation at receiver side
-nRows = 2;
-nCols = 3;
-
 for i = 1:length(EbN0)
     scatterplot(downsampled_signal_rx(i, :));
     title(['Constellation at Eb/N0 = ', num2str(EbN0(i)), ' dB']);
